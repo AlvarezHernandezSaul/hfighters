@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase/Firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
-import LogoImage from "../assets/images/HF logo.jpg"; // Renombrado para evitar conflicto
+import LogoImage from "../assets/images/HF logo.jpg";
+import { FaArrowLeft } from 'react-icons/fa'; // Importar ícono de flecha hacia atrás
 
 // Definimos la interfaz para las props de LoginPage
 interface LoginPageProps {
@@ -61,6 +62,7 @@ const FormContainer = styled.div`
   width: 100%;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative; // Para posicionar el botón de flecha
 `;
 
 const Heading = styled.h2`
@@ -113,6 +115,26 @@ const ErrorMessage = styled.p`
   margin-top: 15px;
 `;
 
+const BackButton = styled.button`
+   position: fixed; /* Fijar en la pantalla */
+  top: 20px; /* Separación desde arriba */
+  left: 20px; /* Separación desde la izquierda */
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+  z-index: 10; /* Asegura que no bloquee otros elementos */
+`;
+
 const LoginPage: React.FC<LoginPageProps> = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -147,6 +169,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ setIsAuthenticated }) => {
         <Sidebar>
           <Logo src={LogoImage} alt="Logo" />
           <FormContainer>
+            <BackButton onClick={() => navigate('/home')}>
+              <FaArrowLeft color="white"/>
+            </BackButton>
             <Heading>Iniciar Sesión</Heading>
             <form onSubmit={handleLogin}>
               <InputField

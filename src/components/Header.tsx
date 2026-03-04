@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import HFLogo from "../assets/images/HF logo.jpg"; // Asegúrate de que la ruta sea correcta
+import HF from "../assets/images/HF.jpg"; // Asegúrate de que la ruta sea correcta
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -37,7 +37,7 @@ const Title = styled.h1`
 `;
 
 const LoginButton = styled(Link)`
-  background-color: #f0a500;
+  background-color: #484f44;
   color: black;
   font-size: 1rem;
   margin-right: 20px;
@@ -59,7 +59,7 @@ const LoginButton = styled(Link)`
 const Header: React.FC = () => {
   return (
     <HeaderContainer>
-      <Logo src={HFLogo} alt="Logo House Fighters" />
+      <Logo src={HF} alt="Logo House Fighters" />
       <Title>HOUSE FIGHTERS</Title>
       <LoginButton to="/Login">Iniciar Sesión</LoginButton>
     </HeaderContainer>

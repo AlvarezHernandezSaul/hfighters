@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Register from '../components/Register';
-import logo from '../assets/images/HF logo.jpg';
+import logo from '../assets/images/HF.jpg';
 import Crud from '../components/Crud';
-import Historial from '../components/History';
+import CoachManager from '../components/CoachManager';
+import PriceManager from '../components/PriceManager';
 import { useNavigate } from 'react-router-dom'; // Reemplaza useHistory con useNavigate
 import { auth } from '../firebase/Firebase'; // Asegúrate de tener la configuración de Firebase correctamente importada
 import { signOut } from 'firebase/auth'; // Asegúrate de usar el método adecuado para cerrar sesión en Firebase
@@ -104,9 +105,8 @@ const Card = styled.div`
 `;
 
 const AdminPage: React.FC = () => {
-  const [activeComponent, setActiveComponent] = useState<'register' | 'list' | 'history'>('register');
+  const [activeComponent, setActiveComponent] = useState<'register' | 'list' | 'history'| 'coachManager' | 'priceManager'>('register');
   const navigate = useNavigate(); // Usamos useNavigate en lugar de useHistory
-
   const handleLogout = async () => {
     try {
       await signOut(auth); // Cerramos sesión usando Firebase
@@ -122,12 +122,14 @@ const AdminPage: React.FC = () => {
         <Logo src={logo} alt="Logo de la App" />
         <MenuItem onClick={() => setActiveComponent('register')}>Registrar Nuevos Socios</MenuItem>
         <MenuItem onClick={() => setActiveComponent('list')}>Lista de Socios</MenuItem>
-        <MenuItem onClick={() => setActiveComponent('history')}>Historial</MenuItem>
+        <MenuItem onClick={() => setActiveComponent('coachManager')}>Administrador Coach</MenuItem>
+        <MenuItem onClick={() => setActiveComponent('priceManager')}>Gestionar Precios</MenuItem>
         <LogoutButton onClick={handleLogout}>Cerrar sesión</LogoutButton>
       </Sidebar>
 
       <ContentArea>
         <h2>Panel de Administración</h2>
+        
         {activeComponent === 'register' && (
           <Card>
             <Register />
@@ -140,9 +142,16 @@ const AdminPage: React.FC = () => {
           </Card>
         )}
 
-        {activeComponent === 'history' && (
+
+        {activeComponent === 'coachManager' && (
           <Card>
-            <Historial />
+            <CoachManager/>
+          </Card>
+        )}
+
+        {activeComponent === 'priceManager' && (
+          <Card>
+            <PriceManager/>
           </Card>
         )}
       </ContentArea>
