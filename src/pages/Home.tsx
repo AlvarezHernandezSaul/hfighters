@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import styled, { keyframes } from "styled-components";
 import { realtimeDb } from "../firebase/Firebase";
 import { ref, query, orderByChild, equalTo, get, update } from "firebase/database";
+import { useNavigate } from "react-router-dom";
 import HFLogo from "../assets/images/HF logo.jpg";
 import Header from "../components/Header";
 
@@ -90,6 +91,24 @@ const SearchButton = styled.button`
 
   &:hover {
     background-color: #3a3e36;
+  }
+`;
+
+const SurveyButton = styled.button`
+  background-color: transparent;
+  color: #bbb;
+  font-size: 13px;
+  padding: 6px 14px;
+  border: 1px solid #555;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+  z-index: 21;
+
+  &:hover {
+    color: #fff;
+    border-color: #fff;
   }
 `;
 
@@ -227,6 +246,7 @@ const Home = () => {
     actividad_extra: '200',
   });
   const inputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (inputRef.current) {
@@ -423,6 +443,9 @@ const Home = () => {
           <SearchButton onClick={handleMemberNumberSubmit} disabled={loading}>
             {loading ? "Buscando..." : "Buscar"}
           </SearchButton>
+          <SurveyButton onClick={() => navigate("/Survey")}>
+            📋 Encuesta de Satisfacción
+          </SurveyButton>
         </InputContainer>
 
         {memberInfo && (
