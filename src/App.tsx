@@ -3,6 +3,7 @@ import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import AdminPage from './pages/AdminPage';
 import LoginPage from './pages/Login';
 import HomePage from './pages/Home';
+import SurveyPage from './pages/SurveyPage';
 import ProtectedRoute from './components/ProtectedRoute'; // Importa el componente ProtectedRoute
 import AutoCleanupService from './services/AutoCleanupService';
 
@@ -28,6 +29,9 @@ function App() {
 
           {/* Ruta para la página de inicio */}
           <Route path="/Home" element={<HomePage />} />
+
+          {/* Ruta para la encuesta de satisfacción */}
+          <Route path="/Survey" element={<SurveyPage />} />
 
           {/* Ruta para la página de inicio de sesión */}
           <Route

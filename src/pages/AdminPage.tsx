@@ -5,6 +5,7 @@ import logo from '../assets/images/HF.jpg';
 import Crud from '../components/Crud';
 import CoachManager from '../components/CoachManager';
 import PriceManager from '../components/PriceManager';
+import SurveyResults from '../components/SurveyResults';
 import { useNavigate } from 'react-router-dom'; // Reemplaza useHistory con useNavigate
 import { auth } from '../firebase/Firebase'; // Asegúrate de tener la configuración de Firebase correctamente importada
 import { signOut } from 'firebase/auth'; // Asegúrate de usar el método adecuado para cerrar sesión en Firebase
@@ -105,7 +106,7 @@ const Card = styled.div`
 `;
 
 const AdminPage: React.FC = () => {
-  const [activeComponent, setActiveComponent] = useState<'register' | 'list' | 'history'| 'coachManager' | 'priceManager'>('register');
+  const [activeComponent, setActiveComponent] = useState<'register' | 'list' | 'history'| 'coachManager' | 'priceManager' | 'surveyResults'>('register');
   const navigate = useNavigate(); // Usamos useNavigate en lugar de useHistory
   const handleLogout = async () => {
     try {
@@ -124,6 +125,7 @@ const AdminPage: React.FC = () => {
         <MenuItem onClick={() => setActiveComponent('list')}>Lista de Socios</MenuItem>
         <MenuItem onClick={() => setActiveComponent('coachManager')}>Administrador Coach</MenuItem>
         <MenuItem onClick={() => setActiveComponent('priceManager')}>Gestionar Precios</MenuItem>
+        <MenuItem onClick={() => setActiveComponent('surveyResults')}>Resultados Encuesta</MenuItem>
         <LogoutButton onClick={handleLogout}>Cerrar sesión</LogoutButton>
       </Sidebar>
 
@@ -152,6 +154,12 @@ const AdminPage: React.FC = () => {
         {activeComponent === 'priceManager' && (
           <Card>
             <PriceManager/>
+          </Card>
+        )}
+
+        {activeComponent === 'surveyResults' && (
+          <Card>
+            <SurveyResults />
           </Card>
         )}
       </ContentArea>
